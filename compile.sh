@@ -33,7 +33,7 @@ echo "# B_ID: $current_datetime" > "$readme_file"
 echo "Build created at: $current_datetime" >> "$readme_file"
 echo "This folder contains builds for the server and client programs." >> "$readme_file"
 echo "This is auto message and might work or might not." >> "$readme_file"
-echo 
+echo  "## Files" >> "$readme_file"
 # Print the path to the build folder
 echo "Builds created at: $build_folder"
 cd $build_folder
