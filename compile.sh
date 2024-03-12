@@ -12,7 +12,7 @@ mkdir -p "$build_folder"
 
 # Compile c scripts into the build folder
 # gcc FILE.c -o "$build_folder/COMPILENAME"
-gcc ECDown.c -o "$build_folder/ECDown"
+gcc ECDown.c -o "$build_folder/ECDown" `pkg-config --cflags --libs gtk+-3.0` -lcurl
 
 # Copy files into the build folder
 # cp FILE "$build_folder/FILE"
