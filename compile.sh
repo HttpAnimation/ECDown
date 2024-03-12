@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Check if the -r flag is provided
+if [[ $1 == "-r" ]]; then
+    # Compile c scripts in the home directory into the build folder
+    gcc ~/FILE.c -o "$build_folder/COMPILENAME"
+fi
+
 # Create Builds folder if it doesn't exist
 mkdir -p Builds
 
@@ -11,12 +17,10 @@ build_folder="Builds/$current_datetime"
 mkdir -p "$build_folder"
 
 # Compile c scripts into the build folder
-# gcc FILE.c -o "$build_folder/COMPILENAME"
 gcc ECDown.c -o "$build_folder/ECDown" `pkg-config --cflags --libs gtk+-3.0` -lcurl -ljansson
 gcc req.c -o "$build_folder/req"
 
 # Copy files into the build folder
-# cp FILE "$build_folder/FILE"
 excluded_files=("README.md")
 for file in *; do
     if [[ ! " ${excluded_files[@]} " =~ " $file " ]]; then
