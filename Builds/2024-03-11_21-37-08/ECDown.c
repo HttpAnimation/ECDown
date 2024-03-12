@@ -86,7 +86,10 @@ int main() {
     char authorization_header[MAX_USERNAME_LENGTH + MAX_API_KEY_LENGTH + 20]; // Additional characters for "Authorization: Basic " and null terminator
     char base64_encoded_credentials[MAX_USERNAME_LENGTH + MAX_API_KEY_LENGTH + 2]; // Additional characters for colon separator and null terminator
     snprintf(base64_encoded_credentials, sizeof(base64_encoded_credentials), "%s:%s", username, api_key);
-    char *encoded_credentials = curl_easy_escape(curl, base64_encoded_credentials, 0);
+    size_t base64_length = 0;
+    curl_easy_escape(curl, base64_encoded_credentials, 0, &base64_length);
+    char *encoded_credentials = malloc(base64_length);
+    curl_easy_escape(curl, base64_encoded_credentials, base64_length, &base64_length);
     snprintf(authorization_header, sizeof(authorization_header), "Authorization: Basic %s", encoded_credentials);
     headers = curl_slist_append(headers, authorization_header);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
@@ -113,7 +116,7 @@ int main() {
     curl_easy_cleanup(curl);
     curl_slist_free_all(headers);
     fclose(fp);
-    curl_free(encoded_credentials);
+    free(encoded_credentials);
     curl_global_cleanup();
 
     return 0;
