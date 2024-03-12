@@ -54,7 +54,7 @@ int main() {
     char username[MAX_USERNAME_LENGTH];
     char api_key[MAX_API_KEY_LENGTH];
     char url[MAX_URL_LENGTH];
-    char download_url[MAX_URL_LENGTH + 6]; // Additional 6 characters for "/download" part
+    char download_url[MAX_URL_LENGTH + 10]; // Additional 10 characters for "/download" part
 
     // Initialize libcurl
     curl_global_init(CURL_GLOBAL_ALL);
@@ -76,15 +76,21 @@ int main() {
     url[strcspn(url, "\n")] = 0;
 
     // Append "/download" to the URL
-    snprintf(download_url, MAX_URL_LENGTH + 6, "%s/download", url);
+    snprintf(download_url, MAX_URL_LENGTH + 10, "%s/download", url);
 
     // Set URL to download
     curl_easy_setopt(curl, CURLOPT_URL, download_url);
 
     // Set up headers with username and API key for authorization
     struct curl_slist *headers = NULL;
-    char authorization_header[MAX_USERNAME_LENGTH + MAX_API_KEY_LENGTH + 9]; // Additional 9 characters for "Authorization: Basic " part
-    snprintf(authorization_header, sizeof(authorization_header), "Authorization: Basic %s:%s", username, api_key);
+    char authorization_header[MAX_USERNAME_LENGTH + MAX_API_KEY_LENGTH + 20]; // Additional characters for "Authorization: Basic " and null terminator
+    char base64_encoded_credentials[MAX_USERNAME_LENGTH + MAX_API_KEY_LENGTH + 2]; // Additional characters for colon separator and null terminator
+    snprintf(base64_encoded_credentials, sizeof(base64_encoded_credentials), "%s:%s", username, api_key);
+    size_t base64_length = 0;
+    curl_easy_escape(curl, base64_encoded_credentials, 0, &base64_length);
+    char *encoded_credentials = malloc(base64_length);
+    curl_easy_escape(curl, base64_encoded_credentials, base64_length, &base64_length);
+    snprintf(authorization_header, sizeof(authorization_header), "Authorization: Basic %s", encoded_credentials);
     headers = curl_slist_append(headers, authorization_header);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
@@ -110,6 +116,7 @@ int main() {
     curl_easy_cleanup(curl);
     curl_slist_free_all(headers);
     fclose(fp);
+    free(encoded_credentials);
     curl_global_cleanup();
 
     return 0;
