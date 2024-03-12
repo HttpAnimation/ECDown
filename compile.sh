@@ -14,7 +14,7 @@ mkdir -p "$build_folder"
 gcc Server-EXP.c -o "$build_folder/webserver" -lmicrohttpd
 
 # Copy files into the build folder
-cp Server-EXP.c "$build_folder/Server-EXP.c"
+# cp FILE "$build_folder/FILE"
 
 
 # Create a Version.ini file with the current date and time
