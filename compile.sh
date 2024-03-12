@@ -16,7 +16,7 @@ gcc ECDown.c -o "$build_folder/ECDown"
 
 # Copy files into the build folder
 # cp FILE "$build_folder/FILE"
-
+cp * "$build_folder"
 
 # Create a Version.ini file with the current date and time
 echo "$current_datetime" > "$build_folder/Version.ini"
