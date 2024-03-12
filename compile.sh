@@ -35,7 +35,7 @@ echo "This folder contains builds for the server and client programs." >> "$read
 echo "This is auto message and might work or might not." >> "$readme_file"
 echo "## Programs" >> "$readme_file"
 echo "1) **req** | Install needed things to compile." >> "$readme_file"
-echo "1) **req** | Install needed things to compile." >> "$readme_file"
+echo "1) **ECDown** | The main compiled app." >> "$readme_file"
 
 # Print the path to the build folder
 echo "Builds created at: $build_folder"
