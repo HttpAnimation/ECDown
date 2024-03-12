@@ -17,13 +17,18 @@ gcc req.c -o "$build_folder/req"
 
 # Copy files into the build folder
 # cp FILE "$build_folder/FILE"
-cp * "$build_folder"
+excluded_files=("README.md")
+for file in *; do
+    if [[ ! " ${excluded_files[@]} " =~ " $file " ]]; then
+        mv "$file" "$build_folder"
+    fi
+done
 
 # Create a Version.ini file with the current date and time
 echo "$current_datetime" > "$build_folder/Version.ini"
 
 # Create README file
-readme_file="$build_folder/README.txt"
+readme_file="$build_folder/README.md"
 echo "Build created at: $current_datetime" > "$readme_file"
 echo "This folder contains builds for the server and client programs." >> "$readme_file"
 echo "This is auto message and might work or might not." >> "$readme_file"
