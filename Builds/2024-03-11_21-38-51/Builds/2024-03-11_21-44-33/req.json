@@ -1,0 +1,6 @@
+{
+    "fedora": {
+        "1": "libcurl-devel",
+        "2": "jansson-devel"
+    }
+}
