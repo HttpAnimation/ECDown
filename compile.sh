@@ -20,7 +20,7 @@ gcc req.c -o "$build_folder/req"
 excluded_files=("README.md")
 for file in *; do
     if [[ ! " ${excluded_files[@]} " =~ " $file " ]]; then
-        mv "$file" "$build_folder"
+        cp "$file" "$build_folder"
     fi
 done
 
