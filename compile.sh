@@ -11,7 +11,7 @@ build_folder="Builds/$current_datetime"
 mkdir -p "$build_folder"
 
 # Compile c scripts into the build folder
-gcc Server-EXP.c -o "$build_folder/webserver" -lmicrohttpd
+# gcc FILE.c -o "$build_folder/COMPILENAME"
 
 # Copy files into the build folder
 # cp FILE "$build_folder/FILE"
