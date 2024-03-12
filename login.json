@@ -1,5 +1,4 @@
 {
-    "username": "your_username_here",
-    "apiKey": "your_api_key_here"
-  }
-  
+    "username": "your_username",
+    "password": "your_password"
+}
