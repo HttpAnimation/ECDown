@@ -12,6 +12,7 @@ mkdir -p "$build_folder"
 
 # Compile c scripts into the build folder
 # gcc FILE.c -o "$build_folder/COMPILENAME"
+gcc FILE.c -o "$build_folder/COMPILENAME"
 
 # Copy files into the build folder
 # cp FILE "$build_folder/FILE"
